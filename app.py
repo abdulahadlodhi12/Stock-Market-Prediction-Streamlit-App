@@ -50,6 +50,9 @@ ticker_side_bar_selectbox = st.sidebar.selectbox("Select Any Stock For Predicito
 
 # Now downloading the data from the yfinance library of the selected ticker
 data = yf.download(ticker_side_bar_selectbox , start=start_date, end=end_date)
+if data.empty:
+    st.error(f"No data found for {ticker_side_bar_selectbox} from {start_date} to {end_date}.")
+    st.stop() 
 # Add data as the index
 data.insert(0,"Date",data.index,True)
 data.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in data.columns]
@@ -340,6 +343,7 @@ st.markdown(f'<div class="footer">Made with ❤️ by Abdul Ahad Lodhi <a href="
 
 
     
+
 
 
 
